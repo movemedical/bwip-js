@@ -33,6 +33,13 @@ console.log('bwip-js', bwipjs.VERSION, 'BWIPP', bwipjs.BWIPP.VERSION);
 const server = http.createServer(function(req, res) {
     // If the url does not begin /?bcid= then 404.  Otherwise, we end up
     // returning 400 on requests like favicon.ico.
+
+    if (req.url.indexOf('/ping') == 0) {
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.end('pong\n');
+        return;
+    }
+
     if (req.url.indexOf('/?bcid=') != 0) {
         res.writeHead(404, { 'Content-Type':'text/plain' });
         res.end('BWIP-JS: Unknown request format.', 'utf8');
